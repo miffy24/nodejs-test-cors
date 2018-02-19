@@ -34,17 +34,19 @@ var server = http.createServer(function(request, response){
     response.write(string)
     response.end()
   }else if(path === '/xxx'){
-    response.statusCode=200
-    response.setHeader('Content-Type','text/html')
+    response.statusCode = 200
+    response.setHeader('Content-Type', 'text/json;charset=utf-8')
+    response.setHeader('Access-Control-Allow-Origin', 'http://chen.com:8001')
     response.write(`
-    <?xml version="1.0" encoding="utf-8"?>
-    <note>
-      <to>George</to>
-      <from>John</from>
-      <heading>Reminder</heading>
-      <body> Don't forget the meeting!</body>
-    </note>	    `)
-    response.end()
+    {
+      "note":{
+        "to": "米米",
+        "from": "旺旺",
+        "heading": "打招呼",
+        "content": "hi"
+      }
+    }
+    `)
   }else{
     response.statusCode = 404
     response.setHeader('Content-Type', 'text/html;charset=utf-8')
