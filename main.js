@@ -1,14 +1,16 @@
 myButton.addEventListener('click', (e)=>{
   let request = new XMLHttpRequest()
-  request.open('get', 'http://jack.com:8002/xxx') // 配置request
-  request.send()
+  request.open('post', '/xxx') // 配置request
+  request.setRequestHeader('frank','18')
+  request.setRequestHeader('Content-Type','x-www-form-urlencoded')
+  request.send('我偏要设置request第四部分')
   request.onreadystatechange = ()=>{
     if(request.readyState === 4){
       console.log('请求响应都完毕了')
       console.log(request.status)
+      console.log(request.statusText)
       if(request.status >= 200 && request.status < 300){
         console.log('说明请求成功')
-        console.log(typeof request.responseText)
         console.log(request.responseText)
         let string = request.responseText
         // 把符合 JSON 语法的字符串
