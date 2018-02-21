@@ -38,19 +38,24 @@ var server = http.createServer(function(request, response){
     response.setHeader('Content-Type', 'text/json;charset=utf-8')
     response.setHeader('Access-Control-Allow-Origin', 'http://chen.com:8001')
     response.write(`
-    {
-      "note":{
-        "to": "米米",
-        "from": "旺旺",
-        "heading": "打招呼",
-        "content": "hi"
+      {
+        "note":{
+          "to": "小米",
+          "from": "小明",
+          "heading": "打招呼",
+          "content": "hi"
+        }
       }
-    }
-    `)
+    `) 
+    response.end()
   }else{
     response.statusCode = 404
     response.setHeader('Content-Type', 'text/html;charset=utf-8')
-    response.write('呜呜呜')
+    response.write(`
+      {
+	"error":"not found"
+      }
+	    `)
     response.end()
   }
 

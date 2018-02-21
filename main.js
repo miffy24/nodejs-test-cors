@@ -9,10 +9,16 @@ window.jQuery.ajax = function(options){
   let url =options.url
   let method = options.method
   let body = options.body
+  let headers = options.headers
   let successFn = options.successFn
   let failFn = options.failFn
   let request = new XMLHttpRequest() //实例化XMLHttpRequest对象
-  request.open(method, url)//配置request 
+  request.open(method, url)//配置request
+  for(let key in headers){
+    let value = headers[key]
+    request.setRequestHeader(key,value)
+  }
+	
   request.onreadystatechange = () => {
     if (request.readyState === 4) {
       if (request.status >= 200 && request.status <= 300) {
@@ -25,12 +31,27 @@ window.jQuery.ajax = function(options){
   request.send(body)
 }
 
+window.$ = window.jQuery
+
+function f1(responseText){}
+function f2(responseText){}
 
 myButton.addEventListener('click', (e)=>{
-  let obj = {
+  window.jQuery.ajax({
       url: '/xxx',
       method: 'post',
-      successFn:()=>{},
-      failFn:()=>{}
-  }
+      headers: {
+	'content-type':'appliction/x-form-urlencoded',
+	'chen':'18'
+      },
+      body:'a=1&b=2',
+      successFn:(x)=>{
+        f1.call(undefined,x)
+	f2.call(undefined,x)
+      },
+      failFn:(x)=>{
+        console.log(x)
+	console.log(x.responseText)
+      }
+  })
 })
